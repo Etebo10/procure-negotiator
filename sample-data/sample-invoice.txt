@@ -1,0 +1,18 @@
+ACME OFFICE SUPPLIES LTD
+Invoice #4471 - Date: 2026-10-02
+Bill To: Your Company
+
+Office cleaning service (per visit) .......... $185.00
+Printer paper A4 (500 sheets) ................ $9.80
+Toner cartridge .............................. $78.50
+Ballpoint pens (box of 50) ................... $22.00
+Sticky notes (12 pack) ....................... $16.50
+Business broadband (per month) ............... $115.00
+Cloud storage (per TB / month) ............... $41.00
+Blog article (per piece) ..................... $260.00
+Waste collection (per month) ................. $68.00
+24-inch monitor .............................. $260.00
+
+Subtotal: $1055.80
+Tax: included
+Total due: $1055.80

@@ -1,0 +1,3 @@
+flask>=3.0
+# optional, only needed for PDF upload:
+# pypdf>=4.0

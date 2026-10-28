@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f4f4ef">
+<title>ProcureAI — Procurement, on your terms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="app">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark"><i class="fa-solid fa-arrow-trend-down" aria-hidden="true"></i></div>
+      <div><span class="logo-name">ProcureAI</span><span class="logo-sub">Spend intelligence</span></div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active" data-view="dashboard"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Overview</span></button>
+      <button class="nav-item" data-view="invoices"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i><span>Invoices</span></button>
+      <button class="nav-item" data-view="vendors"><i class="fa-solid fa-building" aria-hidden="true"></i><span>Vendors</span></button>
+      <button class="nav-item" data-view="negotiations"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Negotiations</span></button>
+      <button class="nav-item" data-view="settings"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Settings</span></button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="mode-chip" id="mode-chip"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> MOCK MODE</div>
+      <p>Procurement workspace <span class="sidebar-version">· v1.0</span></p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+      <div class="topbar">
+        <div class="workspace-mark"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></div>
+        <div class="workspace-name"><span>WORKSPACE</span><strong>Northstar Supply Co.</strong></div>
+        <div class="topbar-spacer"></div>
+        <span class="system-status"><span class="status-dot"></span> All systems operational</span>
+      </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="view active" id="view-dashboard">
+      <header class="view-head">
+        <div><p class="eyebrow">MONDAY, PROCUREMENT OVERVIEW</p><h1>Your spend, <em>in control.</em></h1><p class="muted">A sharper view of what you pay and what you could save.</p></div>
+        <button class="btn btn-primary" data-go-view="invoices"><i class="fa-solid fa-plus" aria-hidden="true"></i> Analyze an invoice</button>
+      </header>
+      <div class="stat-grid">
+        <div class="stat-card glow-green"><span class="stat-icon"><i class="fa-solid fa-magnifying-glass-dollar" aria-hidden="true"></i></span><div><p class="stat-label">Annual savings identified</p><h2 class="stat-value" id="st-annual">$0</h2><span class="stat-foot">Opportunity in your invoices</span></div></div>
+        <div class="stat-card glow-gold"><span class="stat-icon"><i class="fa-solid fa-coins" aria-hidden="true"></i></span><div><p class="stat-label">Savings secured</p><h2 class="stat-value" id="st-won">$0</h2><span class="stat-foot">Won through negotiation</span></div></div>
+        <div class="stat-card glow-blue"><span class="stat-icon"><i class="fa-solid fa-comments-dollar" aria-hidden="true"></i></span><div><p class="stat-label">Active negotiations</p><h2 class="stat-value" id="st-active">0</h2><span class="stat-foot">Deals in motion</span></div></div>
+        <div class="stat-card glow-purple"><span class="stat-icon"><i class="fa-solid fa-shop" aria-hidden="true"></i></span><div><p class="stat-label">Vendors tracked</p><h2 class="stat-value" id="st-vendors">0</h2><span class="stat-foot">Across your supply base</span></div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-heading"><div><p class="eyebrow">SPEND SIGNALS</p><h3>Overcharges by category</h3></div><span class="heading-icon"><i class="fa-solid fa-chart-column" aria-hidden="true"></i></span></div>
+          <div class="chart-wrap"><canvas id="cat-chart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-heading"><div><p class="eyebrow">DEAL DESK</p><h3>Recent negotiations</h3></div><button class="text-action" data-go-view="negotiations">View all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div>
+          <div id="recent-negos" class="recent-list"><p class="muted">No negotiations yet — analyze an invoice to begin.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VENDORS ===== -->
+    <section class="view" id="view-vendors">
+      <header class="view-head"><div><p class="eyebrow">SUPPLIER DIRECTORY</p><h1>Vendors</h1><p class="muted">Your supplier relationships, all in one place.</p></div></header>
+      <div class="two-col wide-left">
+        <div class="card">
+          <div class="card-heading"><div><p class="eyebrow">NEW RELATIONSHIP</p><h3>Add a vendor</h3></div><span class="heading-icon"><i class="fa-solid fa-building-circle-check" aria-hidden="true"></i></span></div>
+          <div class="form-grid">
+            <input id="v-name" placeholder="Vendor name *">
+            <select id="v-category"></select>
+            <input id="v-contact" placeholder="Contact person">
+            <input id="v-email" placeholder="Email (e.g. billing@acme.com)">
+          </div>
+          <button class="btn btn-primary" id="btn-add-vendor"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add vendor</button>
+        </div>
+        <div class="card">
+          <div class="card-heading"><div><p class="eyebrow">YOUR NETWORK</p><h3>Vendor directory</h3></div></div>
+          <div id="vendor-list" class="row-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INVOICES ===== -->
+    <section class="view" id="view-invoices">
+      <header class="view-head"><div><p class="eyebrow">INVOICE INTELLIGENCE</p><h1>Invoices</h1><p class="muted">Benchmark line items against the market and spot what deserves a second look.</p></div></header>
+      <div class="two-col wide-left">
+        <div class="card">
+          <div class="card-heading"><div><p class="eyebrow">START HERE</p><h3>Analyze an invoice</h3></div><span class="heading-icon"><i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i></span></div>
+          <label class="field-label">Vendor</label>
+          <select id="inv-vendor"></select>
+          <label class="field-label">Upload file (.txt / .pdf)</label>
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="inv-file" accept=".txt,.pdf" hidden>
+            <p><i class="fa-solid fa-cloud-arrow-up drop-icon" aria-hidden="true"></i></p>
+            <p>Drop a file here or <span class="link">browse files</span></p>
+            <p class="muted small" id="file-name">no file selected</p>
+          </div>
+          <div class="or"><span>or paste invoice text</span></div>
+          <textarea id="inv-text" rows="6" placeholder="Office cleaning service ..... $180&#10;Printer paper A4 (500 sheets) .. $9.50&#10;Toner cartridge ............... $74.00"></textarea>
+          <button class="btn btn-primary" id="btn-upload-inv"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i> Save invoice</button>
+        </div>
+        <div class="card">
+          <div class="card-heading"><div><p class="eyebrow">YOUR DOCUMENTS</p><h3>Saved invoices</h3></div></div>
+          <div id="invoice-list" class="row-list"></div>
+        </div>
+      </div>
+      <div class="card hidden" id="analysis-card">
+        <div class="analysis-head">
+            <h3><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Benchmark analysis</h3>
+          <div class="analysis-badges">
+            <span class="pill pill-red" id="an-flagged"></span>
+            <span class="pill pill-gold" id="an-overcharge"></span>
+            <span class="pill pill-green" id="an-annual"></span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Line item</th><th>You pay</th><th>Market benchmark</th><th>Fair price</th><th>Verdict</th></tr></thead>
+            <tbody id="analysis-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary" id="btn-to-negotiate"><i class="fa-solid fa-handshake" aria-hidden="true"></i> Start negotiation on this invoice</button>
+      </div>
+    </section>
+
+    <!-- ===== NEGOTIATIONS ===== -->
+    <section class="view" id="view-negotiations">
+      <header class="view-head"><div><p class="eyebrow">SUPPLIER DEAL DESK</p><h1>Negotiations</h1><p class="muted">Build a clear case, make the ask, and keep every offer on record.</p></div></header>
+
+      <div class="two-col wide-left">
+        <div class="card" id="composer-card">
+          <div class="card-heading"><div><p class="eyebrow">MAKE YOUR NEXT ASK</p><h3>New negotiation</h3></div><span class="heading-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></span></div>
+          <label class="field-label">Invoice (analyzed)</label>
+          <select id="ng-invoice"></select>
+          <label class="field-label">Tone</label>
+          <div class="tone-row" id="tone-row">
+            <button class="tone-btn active" data-tone="friendly"><i class="fa-regular fa-face-smile" aria-hidden="true"></i> Friendly</button>
+            <button class="tone-btn" data-tone="firm"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Firm</button>
+            <button class="tone-btn" data-tone="hardball"><i class="fa-solid fa-bullseye" aria-hidden="true"></i> Hardball</button>
+          </div>
+          <label class="field-label">Extra context (optional)</label>
+          <textarea id="ng-notes" rows="3" placeholder="e.g. We have been a customer for 4 years and pay on time."></textarea>
+          <button class="btn btn-primary" id="btn-generate"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Generate negotiation email</button>
+        </div>
+
+        <div class="card" id="deal-card">
+          <div class="card-heading"><div><p class="eyebrow">LIVE NEGOTIATION</p><h3>Deal room</h3></div><span class="heading-icon"><i class="fa-solid fa-comments" aria-hidden="true"></i></span></div>
+          <div id="deal-empty" class="muted deal-empty">Pick an invoice and generate an email to open the deal room.</div>
+          <div id="deal-live" class="hidden">
+            <div class="email-preview">
+              <div class="email-subject" id="email-subject"></div>
+              <pre class="email-body" id="email-body"></pre>
+              <div class="email-actions">
+                <span class="pill pill-blue" id="email-source"></span>
+                <button class="btn btn-primary" id="btn-send"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send to vendor</button>
+              </div>
+            </div>
+            <div class="chat" id="chat"></div>
+            <div class="deal-controls hidden" id="deal-controls">
+              <button class="btn btn-ghost" id="btn-counter"><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i> Counter — push for more</button>
+              <button class="btn btn-success" id="btn-accept"><i class="fa-solid fa-check" aria-hidden="true"></i> Accept offer</button>
+            </div>
+            <div class="deal-win hidden" id="deal-win"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Deal closed — you saved <b id="win-amount"></b>!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-heading"><div><p class="eyebrow">PAPER TRAIL</p><h3>Negotiation history</h3></div></div>
+        <div id="nego-history" class="row-list"></div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS ===== -->
+    <section class="view" id="view-settings">
+      <header class="view-head"><div><p class="eyebrow">WORKSPACE PREFERENCES</p><h1>Settings</h1><p class="muted">Choose how drafts are generated and configure your AI connection.</p></div></header>
+      <div class="card settings-card">
+        <div class="toggle-row">
+          <div><h3><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI mode</h3><p class="muted small">Mock uses built-in templates. Live connects to your configured language model.</p></div>
+          <label class="switch"><input type="checkbox" id="set-mock" checked><span class="slider"></span></label>
+        </div>
+        <div class="form-grid">
+          <div><label class="field-label">API key</label><input id="set-key" type="password" placeholder="sk-..."></div>
+          <div><label class="field-label">Model</label><input id="set-model" placeholder="gpt-4o-mini"></div>
+          <div><label class="field-label">Base URL (OpenAI-compatible)</label><input id="set-base" placeholder="https://api.openai.com/v1"></div>
+        </div>
+        <button class="btn btn-primary" id="btn-save-settings"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save settings</button>
+        <p class="muted small" id="settings-status"></p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
